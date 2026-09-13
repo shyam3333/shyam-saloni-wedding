@@ -1,0 +1,930 @@
+/* =========================================================================
+   WEDDING INVITATION - STYLES
+   ========================================================================= */
+
+:root {
+  --color-bg: #FBF3E6;
+  --color-card: #FFFDF9;
+  --color-primary: #C1440E;      /* terracotta / orange-red */
+  --color-primary-dark: #7A1F2B; /* deep maroon */
+  --color-primary-light: #E86A3A;
+  --color-gold: #B9902F;
+  --color-gold-light: #E8C874;
+  --color-gold-soft: #F1DFAE;
+  --color-text: #3B2A1E;
+  --color-text-soft: #7A6753;
+  --color-line: #E7D6BC;
+
+  --font-script: 'Dancing Script', cursive;
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Cormorant Garamond', serif;
+
+  --frame-max-width: 480px;
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background:
+    radial-gradient(circle at 20% 10%, #f6e4c8 0%, transparent 55%),
+    radial-gradient(circle at 85% 90%, #e9c9b0 0%, transparent 55%),
+    linear-gradient(160deg, #efe0c8 0%, #d9c3a1 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+button { font-family: inherit; }
+
+.script { font-family: var(--font-script); font-weight: 600; }
+
+/* ---------------------------------------------------------------------
+   APP FRAME - the "invitation card". Full-bleed on mobile, a centered
+   phone-like card on wider screens. It is the scroll container, which
+   lets floating buttons (audio toggle) stay fixed to the CARD rather
+   than the browser window.
+   --------------------------------------------------------------------- */
+.app-frame {
+  position: relative;
+  max-width: var(--frame-max-width);
+  margin: 0 auto;
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--color-bg);
+  transform: translateZ(0); /* establishes containing block for fixed children */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.app-frame.locked { overflow: hidden; }
+
+@media (min-width: 560px) {
+  .app-frame {
+    margin-top: 22px;
+    margin-bottom: 22px;
+    height: calc(100dvh - 44px);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 40px 90px -20px rgba(50, 20, 10, .45), 0 0 0 8px #fffdf9;
+  }
+}
+
+/* scrollbar (desktop cosmetic) */
+.app-frame::-webkit-scrollbar { width: 6px; }
+.app-frame::-webkit-scrollbar-thumb { background: var(--color-gold-soft); border-radius: 6px; }
+
+/* ---------------------------------------------------------------------
+   FLOATING PETALS
+   --------------------------------------------------------------------- */
+.petal-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5;
+}
+.petal {
+  position: absolute;
+  top: -8%;
+  width: 10px;
+  height: 14px;
+  background: linear-gradient(160deg, var(--color-gold-light), var(--color-primary-light));
+  border-radius: 0 60% 0 60%;
+  opacity: .55;
+  animation-name: petalFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+@keyframes petalFall {
+  0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+  10%  { opacity: .6; }
+  90%  { opacity: .5; }
+  100% { transform: translate3d(var(--drift, 30px), 120vh, 0) rotate(340deg); opacity: 0; }
+}
+
+/* ---------------------------------------------------------------------
+   DECORATIVE CORNERS (cover)
+   --------------------------------------------------------------------- */
+.corner {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border: 2px solid var(--color-gold);
+  opacity: .55;
+  pointer-events: none;
+}
+.corner-tl { top: 18px; left: 18px; border-right: none; border-bottom: none; }
+.corner-tr { top: 18px; right: 18px; border-left: none; border-bottom: none; }
+.corner-bl { bottom: 18px; left: 18px; border-right: none; border-top: none; }
+.corner-br { bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+/* ---------------------------------------------------------------------
+   COVER (wax seal splash)
+   --------------------------------------------------------------------- */
+.cover {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 56px 28px 40px;
+  text-align: center;
+  background: linear-gradient(155deg, #C1440E 0%, #7A1F2B 100%);
+  color: #fdf3e3;
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.cover.is-hiding { opacity: 0; transform: scale(1.04); pointer-events: none; }
+
+.cover-invite {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  font-style: italic;
+  max-width: 32ch;
+  margin: 0;
+  text-shadow: 0 2px 6px rgba(0,0,0,.45);
+}
+
+.seal-wrap { position: relative; width: clamp(270px, 84vw, 380px); height: clamp(270px, 84vw, 380px); }
+
+/* soft white glow, centered exactly on the seal itself (not the whole
+   cover), so it always lines up with the logo regardless of layout */
+.seal-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -26%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8ec 0%, rgba(255,246,230,.6) 45%, transparent 72%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.seal-btn {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  animation: sealPulse 2.6s ease-in-out infinite;
+}
+.seal-btn:focus-visible { outline: 2px solid #fff; outline-offset: 6px; border-radius: 50%; }
+
+@keyframes sealPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.045); }
+}
+
+.seal-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: sealSpin 16s linear infinite;
+}
+@keyframes sealSpin { to { transform: rotate(360deg); } }
+.seal-ring-text {
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  letter-spacing: 2px;
+  fill: #f6dfa9;
+}
+
+.seal-face {
+  width: 94%;
+  height: 94%;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.seal-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.4));
+}
+
+.cover-tag {
+  font-family: var(--font-script);
+  font-size: 2.1rem;
+  margin: 0;
+  color: #fbe6b8;
+}
+
+/* seal tap animation */
+.seal-btn.is-cracking { animation: none; }
+.seal-btn.is-cracking .seal-face {
+  animation: sealOpen .7s var(--ease) forwards;
+}
+.seal-btn.is-cracking .seal-ring {
+  animation: sealRingOut .7s var(--ease) forwards;
+}
+@keyframes sealOpen {
+  0% { transform: scale(1); opacity: 1; }
+  60% { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes sealRingOut {
+  to { transform: scale(1.6) rotate(60deg); opacity: 0; }
+}
+
+.spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-gold-light);
+  pointer-events: none;
+  animation: sparkBurst .8s var(--ease) forwards;
+}
+@keyframes sparkBurst {
+  to {
+    transform: translate(var(--sx), var(--sy)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   NAME SPLASH
+   --------------------------------------------------------------------- */
+.name-splash {
+  position: absolute;
+  inset: 0;
+  z-index: 19;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 60px 26px;
+  text-align: center;
+  color: #fdf3e3;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255,244,222,.16) 0%, transparent 55%),
+    repeating-linear-gradient(45deg, rgba(232,196,116,.16) 0 1.5px, transparent 1.5px 24px),
+    repeating-linear-gradient(-45deg, rgba(232,196,116,.16) 0 1.5px, transparent 1.5px 24px),
+    linear-gradient(165deg, #D9683B 0%, #A32E1E 45%, #5E1420 100%);
+  animation: fadeIn .8s var(--ease);
+}
+.name-splash.is-hiding { animation: fadeOut .6s var(--ease) forwards; pointer-events: none; }
+/* belt-and-suspenders: `.name-splash`/`.cover` set `display:flex`, which
+   (being an author rule) overrides the browser's default `[hidden]{
+   display:none}` UA rule - so setting the `hidden` attribute via JS
+   doesn't actually remove them from layout/hit-testing on its own. That
+   left an invisible, still-clickable name-splash sitting over the top of
+   the page after the intro finished, silently swallowing clicks on
+   anything underneath it at the same screen position (e.g. the fixed
+   audio-toggle button). pointer-events:none above covers the fade-out
+   transition; this covers the final resting state. */
+.cover[hidden], .name-splash[hidden] { display: none; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { to { opacity: 0; } }
+
+.rj-arch {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(78%, 300px);
+  color: var(--color-gold-light);
+  opacity: .8;
+}
+.rj-arch-top { top: 26px; }
+.rj-arch-bottom { bottom: 26px; transform: translateX(-50%) rotate(180deg); }
+
+.name-splash-title {
+  font-family: var(--font-script);
+  font-size: 3.1rem;
+  line-height: 1.15;
+  margin: 0;
+  color: #fbe6b8;
+  background: linear-gradient(120deg, var(--color-gold-light) 0%, #fff3da 45%, var(--color-gold-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 18px rgba(0,0,0,.25);
+}
+.name-splash-title em { font-style: normal; display: block; font-size: 1.6rem; color: var(--color-gold-light); -webkit-text-fill-color: var(--color-gold-light); }
+.name-splash-date {
+  font-family: var(--font-display);
+  letter-spacing: 2px;
+  font-size: .95rem;
+  color: #f1dfc0;
+}
+
+/* ---------------------------------------------------------------------
+   MAIN CONTENT
+   --------------------------------------------------------------------- */
+.main-content { position: relative; z-index: 1; }
+
+.section {
+  position: relative;
+  padding: 64px 26px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-line);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .8s var(--ease), transform .8s var(--ease);
+}
+.section.in-view { opacity: 1; transform: translateY(0); }
+.section:last-child { border-bottom: none; }
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: .72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0 0 6px;
+}
+.section-title {
+  font-size: 2.4rem;
+  color: var(--color-primary);
+  margin: 0 0 8px;
+}
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  margin: 14px auto 0;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* ---------- Hero ---------- */
+.hero-section { padding-top: 54px; }
+.ganesh-icon { width: 92px; margin: 0 auto 8px; filter: drop-shadow(0 4px 10px rgba(122,31,43,.25)); }
+.shlok { font-size: .95rem; letter-spacing: 1px; color: var(--color-text-soft); margin: 0 0 22px; }
+
+.couple-block { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.couple-name { font-size: 2.6rem; color: var(--color-primary-dark); margin: 6px 0 2px; }
+.couple-parent { margin: 0; font-size: 1.05rem; }
+.couple-grandparent { margin: 2px 0 0; font-size: .85rem; font-style: italic; color: var(--color-text-soft); }
+.ampersand { font-family: var(--font-script); font-size: 2rem; color: var(--color-gold); margin: 18px 0; }
+
+.scroll-cue { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--color-text-soft); font-size: .75rem; letter-spacing: 2px; text-transform: uppercase; }
+.scroll-arrow { width: 10px; height: 10px; border-right: 2px solid var(--color-gold); border-bottom: 2px solid var(--color-gold); transform: rotate(45deg); animation: bounceDown 1.6s ease-in-out infinite; }
+@keyframes bounceDown { 0%,100% { transform: rotate(45deg) translate(0,0); opacity:.5; } 50% { transform: rotate(45deg) translate(4px,4px); opacity:1; } }
+
+/* ---------- Countdown ---------- */
+.quote { font-style: italic; font-size: 1.15rem; max-width: 30ch; margin: 0 auto 10px; color: var(--color-text); }
+.wedding-date { font-family: var(--font-display); letter-spacing: 2px; font-size: .95rem; color: var(--color-primary-dark); margin: 0 0 28px; }
+.countdown { display: flex; justify-content: center; gap: 14px; }
+.countdown-unit {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: 14px 8px;
+  min-width: 62px;
+  box-shadow: 0 8px 18px -10px rgba(120,60,20,.25);
+}
+.countdown-unit span { display: block; font-family: var(--font-display); font-size: 1.5rem; color: var(--color-primary); }
+.countdown-unit small { font-size: .62rem; letter-spacing: 1.5px; color: var(--color-text-soft); text-transform: uppercase; }
+
+/* ---------- Gallery carousel ---------- */
+.gallery-carousel { margin-top: 28px; max-width: 340px; margin-left: auto; margin-right: auto; }
+
+.gallery-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 18px 36px -16px rgba(120,60,20,.4);
+  cursor: pointer;
+  background: var(--color-card);
+}
+.gallery-viewport:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
+
+.gallery-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform .55s var(--ease);
+  will-change: transform;
+}
+.gallery-slide { flex: 0 0 100%; width: 100%; height: 100%; }
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  display: block;
+}
+
+.gallery-tap-hint {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.85);
+  color: var(--color-primary);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,.25);
+  pointer-events: none;
+  animation: tapHintPulse 2.4s ease-in-out infinite;
+}
+.gallery-tap-hint svg { width: 18px; height: 18px; }
+@keyframes tapHintPulse {
+  0%, 100% { transform: scale(1); opacity: .9; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
+.gallery-caption {
+  margin: 18px 0 2px;
+  font-size: 1.55rem;
+  color: var(--color-primary-dark);
+  text-align: center;
+  min-height: 1.3em;
+}
+
+.gallery-dots { display: flex; justify-content: center; gap: 8px; margin-top: 8px; }
+.gallery-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-gold-soft);
+  cursor: pointer;
+  transition: all .25s var(--ease);
+}
+.gallery-dot.is-active { background: var(--color-primary); width: 22px; border-radius: 5px; }
+
+.gallery-hint {
+  margin-top: 12px;
+  font-size: .78rem;
+  font-style: italic;
+  color: var(--color-text-soft);
+  text-align: center;
+  opacity: .8;
+}
+
+/* ---------- Venue ---------- */
+.venue-card { margin-top: 20px; }
+.venue-illustration { width: 100px; margin: 0 auto 10px; color: var(--color-gold); }
+.venue-name { font-family: var(--font-script); font-size: 1.9rem; color: var(--color-primary-dark); margin: 4px 0; }
+.venue-address { font-size: .95rem; color: var(--color-text-soft); max-width: 34ch; margin: 0 auto 20px; }
+.venue-map { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-line); margin-bottom: 20px; }
+.venue-map iframe { width: 100%; height: 220px; border: 0; display: block; }
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 30px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  color: #fff9ef;
+  box-shadow: 0 10px 20px -8px rgba(193,68,14,.55);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 26px -10px rgba(193,68,14,.6); }
+.btn:active { transform: translateY(0) scale(.98); }
+
+/* ---------- Ceremonies ---------- */
+.ceremony-list { display: flex; flex-direction: column; gap: 26px; margin-top: 30px; }
+.ceremony-card {
+  background: var(--color-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-line);
+  padding: 30px 20px 24px;
+  text-align: center;
+  box-shadow: 0 14px 30px -16px rgba(120,60,20,.35);
+  position: relative;
+  isolation: isolate; /* scopes the scene's negative z-index to THIS card only */
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.ceremony-card::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -26px;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 26px;
+  background: var(--color-gold-soft);
+}
+.ceremony-list > .ceremony-card:first-child::before { display: none; }
+
+.ceremony-tag { font-family: var(--font-display); font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--color-gold); margin: 0 0 6px; text-align: center; }
+.ceremony-name { font-family: var(--font-script); font-size: 1.9rem; line-height: 1.15; margin: 0 0 12px; color: var(--color-primary-dark); text-align: center; }
+.ceremony-meta { font-size: .95rem; color: var(--color-text-soft); margin: 2px 0; text-align: center; }
+.ceremony-theme-badge {
+  display: block;
+  width: fit-content;
+  margin: 12px auto 0;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-family: var(--font-display);
+  font-size: .68rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: .95;
+}
+
+/* a real couple photo, shown as a small round charm on a card */
+.ceremony-photo {
+  width: 84px;
+  height: 84px;
+  margin: 16px auto 0;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #fff;
+  box-shadow: 0 8px 20px -8px rgba(60,30,20,.45);
+}
+.ceremony-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 22%;
+  display: block;
+}
+
+/* --- decorative scene layer (arch/curtain silhouette + couple silhouette)
+   sitting behind the text but above the card's gradient background --- */
+.ceremony-scene {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.ceremony-scene svg { width: 100%; height: 100%; display: block; }
+
+/* --- animated avatar badge above each card --- */
+.ceremony-avatar {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: visible;
+}
+.ceremony-avatar svg { width: 62px; height: 62px; overflow: visible; }
+
+/* a ceremony card that uses a real photo as its full background, with
+   the ceremony details overlaid directly on top of it. The card has no
+   fixed aspect-ratio - its height comes entirely from the photo itself
+   (rendered at full width, natural height) so the whole image always
+   shows with no cropping; the overlay/text are absolutely positioned on
+   top of that, rather than the photo being forced to fill a fixed box. */
+.ceremony-card--photo {
+  padding: 0;
+}
+.ceremony-bg-photo {
+  position: relative;
+  width: 100%;
+  /* no line-height:0 here - display:block on the img already removes the
+     inline-image gap, and line-height is an INHERITED property, so
+     setting it to 0 here would collapse every text line box nested
+     inside (the overlay/content are children of this element) */
+  border-radius: inherit;
+  overflow: hidden;
+}
+.ceremony-bg-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.ceremony-photo-overlay {
+  display: none; /* the photo's own colors are the whole point - no dark wash over it */
+}
+.ceremony-photo-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 24px;
+  text-align: center;
+}
+/* a photo whose open space sits somewhere other than dead-center (set via
+   a per-card --photo-text-top custom property, see js/script.js) - anchor
+   the text block to that spot instead of centering it on the whole card.
+   top/bottom position offsets resolve against the container's HEIGHT
+   (unlike padding, which resolves against its width), so this is the
+   correct way to land the text reliably regardless of the card's width */
+.ceremony-card--photo-anchored .ceremony-photo-content {
+  inset: auto 0 auto 0;
+  top: var(--photo-text-top, 20%);
+  justify-content: flex-start;
+  padding-top: 0;
+}
+
+.ceremony-schedule { margin: 6px 0 2px; }
+.ceremony-schedule-item { font-size: .92rem; margin: 4px 0; }
+.ceremony-schedule-label { font-weight: 700; }
+.ceremony-venue-line { font-size: .85rem; font-style: italic; margin: 10px 0 0; }
+
+/* extra-bold variant (Musical Pheras, Barat on Wheels & Reception): a
+   stronger weight on top of the usual dark/white photo-text treatment */
+.ceremony-card--extra-bold .ceremony-photo-content .ceremony-name,
+.ceremony-card--extra-bold .ceremony-photo-content .ceremony-schedule-item,
+.ceremony-card--extra-bold .ceremony-photo-content .ceremony-meta,
+.ceremony-card--extra-bold .ceremony-photo-content .ceremony-venue-line {
+  font-weight: 800;
+}
+
+/* a panel below the photo holding just the venue map + directions button
+   (used when a ceremony has venueMap - e.g. Manglik Programme). It's a
+   real interactive widget, not photo-overlay text, so it stays in its own
+   plain card area rather than being laid over the image. */
+.ceremony-bg-photo--top-only { border-radius: var(--radius-md) var(--radius-md) 0 0; }
+.ceremony-extra {
+  background: var(--color-card);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: 20px 22px 24px;
+  text-align: center;
+}
+.ceremony-venue-map { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-line); margin-bottom: 16px; }
+.ceremony-venue-map iframe { width: 100%; height: 180px; border: 0; display: block; }
+.ceremony-directions-btn { width: 100%; }
+
+.ceremony-schedule-groups { margin: 4px 0 0; }
+.ceremony-schedule-group { margin: 0 0 14px; }
+.ceremony-schedule-group:last-of-type { margin-bottom: 0; }
+.ceremony-schedule-date {
+  font-family: var(--font-display);
+  font-size: .78rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0 0 6px;
+}
+.ceremony-photo-content .ceremony-schedule-date {
+  color: #FCE7B0 !important;
+  text-shadow: 0 0 8px rgba(0,0,0,.85), 0 1px 2px rgba(0,0,0,.9);
+}
+.ceremony-card--photo-dark .ceremony-photo-content .ceremony-schedule-date {
+  color: #4A2170 !important;
+  text-shadow: 0 1px 2px rgba(255,255,255,1), 0 0 8px rgba(255,255,255,.8);
+}
+
+/* a card whose overlay carries a LOT of text (multi-date schedule, e.g.
+   Manglik Programme) - tighten sizing/spacing throughout so it still
+   fits inside the photo's open space without spilling onto the artwork */
+.ceremony-card--photo-compact .ceremony-photo-content .ceremony-name {
+  font-size: 1.55rem;
+  margin-bottom: 8px;
+}
+.ceremony-card--photo-compact .ceremony-schedule-groups { margin-top: 0; }
+.ceremony-card--photo-compact .ceremony-schedule-group { margin-bottom: 9px; }
+.ceremony-card--photo-compact .ceremony-schedule-date { font-size: .64rem; margin-bottom: 2px; }
+.ceremony-card--photo-compact .ceremony-schedule-item { font-size: .76rem; margin: 0; line-height: 1.4; }
+.ceremony-card--photo-compact .ceremony-venue-line { font-size: .74rem; margin-top: 8px; }
+
+/* --- default (dark-photo) treatment, e.g. Sangeet's night scene ---
+   !important: these must win over the .theme-* text-color rules, which
+   are more specific (card+theme+element) and would otherwise show the
+   theme's ink-on-light colors instead of these overlay-on-photo colors.
+   No dark panel behind the text (the photo's colors show fully), so a
+   strong layered glow around each letter does the contrast work instead -
+   reads fine over both the light and dark parts of a photo. */
+.ceremony-photo-content .ceremony-tag {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.4);
+  color: #FCE7B0 !important;
+  font-weight: 700;
+  text-shadow: none;
+}
+.ceremony-photo-content .ceremony-name {
+  color: #fff !important;
+  text-shadow: 0 0 14px rgba(0,0,0,.8), 0 0 6px rgba(0,0,0,.85), 0 2px 6px rgba(0,0,0,.9);
+}
+.ceremony-photo-content .ceremony-meta,
+.ceremony-photo-content .ceremony-schedule-item,
+.ceremony-photo-content .ceremony-venue-line {
+  color: #fff !important;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0,0,0,.85), 0 0 4px rgba(0,0,0,.9), 0 1px 3px rgba(0,0,0,.9);
+}
+.ceremony-photo-content .ceremony-theme-badge {
+  color: #fff !important;
+  background: rgba(0,0,0,.35);
+  text-shadow: 0 1px 3px rgba(0,0,0,.6);
+}
+
+/* --- light-photo treatment: dark ink + white pills/halo, for any card
+   with darkText:true in config.js (Haldi, Pheras, Barat & Reception all
+   have a pale/open patch in their photo, unlike Sangeet's night sky) --- */
+.ceremony-card--photo-dark .ceremony-photo-content .ceremony-tag {
+  background: rgba(255,255,255,.88);
+  color: #2A1240 !important;
+  border: 2px solid #4A2170;
+}
+.ceremony-card--photo-dark .ceremony-photo-content .ceremony-name {
+  color: #2A1240 !important;
+  font-weight: 700;
+  text-shadow: 0 1px 4px rgba(255,255,255,1), 0 0 16px rgba(255,255,255,.8);
+}
+.ceremony-card--photo-dark .ceremony-photo-content .ceremony-meta,
+.ceremony-card--photo-dark .ceremony-photo-content .ceremony-schedule-item,
+.ceremony-card--photo-dark .ceremony-photo-content .ceremony-venue-line {
+  color: #35134F !important;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(255,255,255,1), 0 0 12px rgba(255,255,255,.8);
+}
+.ceremony-card--photo-dark .ceremony-photo-content .ceremony-theme-badge {
+  color: #2A1240 !important;
+  font-weight: 700;
+  background: rgba(255,255,255,.88);
+  border: 2px solid #4A2170;
+  box-shadow: 0 2px 10px rgba(0,0,0,.2);
+  text-shadow: none;
+}
+
+/* theme: Haldi Carnival - lavender */
+.ceremony-card.theme-lavender {
+  background: linear-gradient(165deg, #FBF4FF 0%, #E7D0FA 55%, #C9A3EE 100%);
+  border-color: #D9BFF2;
+}
+.ceremony-card.theme-lavender .ceremony-tag { color: #9457C7; }
+.ceremony-card.theme-lavender .ceremony-name { color: #5B2C82; }
+.ceremony-card.theme-lavender .ceremony-meta { color: #6B4A85; }
+.ceremony-card.theme-lavender .ceremony-theme-badge { color: #5B2C82; background: rgba(255,255,255,.5); }
+.ceremony-card.theme-lavender .ceremony-avatar {
+  background: radial-gradient(circle at 34% 30%, #ffffff 0%, #EEDBFA 55%, #C9A3EE 100%);
+  box-shadow: 0 10px 22px -10px rgba(120,60,170,.5), inset 0 2px 5px rgba(255,255,255,.7);
+}
+@keyframes bloomPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.09) rotate(5deg); }
+}
+.avatar-haldiCarnival svg { animation: bloomPulse 3.2s ease-in-out infinite; }
+
+/* theme: Engagement & Sangeet - dark */
+.ceremony-card.theme-dark {
+  background:
+    radial-gradient(1.6px 1.6px at 18% 22%, #fff 60%, transparent),
+    radial-gradient(1.6px 1.6px at 76% 16%, #fff 60%, transparent),
+    radial-gradient(1.2px 1.2px at 42% 68%, #fff 60%, transparent),
+    radial-gradient(1.6px 1.6px at 88% 58%, #fff 60%, transparent),
+    radial-gradient(1.2px 1.2px at 58% 40%, #fff 60%, transparent),
+    radial-gradient(1.2px 1.2px at 8% 70%, #fff 60%, transparent),
+    linear-gradient(165deg, #171426 0%, #221e3a 55%, #2f2848 100%);
+  border-color: #3a3452;
+}
+.ceremony-card.theme-dark .ceremony-tag { color: #E8C766; }
+.ceremony-card.theme-dark .ceremony-name { color: #F4E6FF; }
+.ceremony-card.theme-dark .ceremony-meta { color: rgba(244,230,255,.78); }
+.ceremony-card.theme-dark .ceremony-theme-badge { color: #E8C766; background: rgba(255,255,255,.06); }
+.ceremony-card.theme-dark .ceremony-avatar {
+  background: radial-gradient(circle at 34% 28%, #3a3560 0%, #17142a 75%);
+  box-shadow: 0 10px 22px -10px rgba(0,0,0,.65), inset 0 0 0 1px rgba(232,199,102,.25);
+}
+@keyframes discoSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.avatar-sangeetDark svg { animation: discoSpin 9s linear infinite; }
+@keyframes twinkle {
+  0%, 100% { opacity: .25; transform: scale(.7); }
+  50% { opacity: 1; transform: scale(1); }
+}
+.avatar-sangeetDark .sparkle-a { animation: twinkle 1.8s ease-in-out infinite; transform-origin: center; }
+.avatar-sangeetDark .sparkle-b { animation: twinkle 1.8s ease-in-out infinite .9s; transform-origin: center; }
+
+/* theme: Pheras - sacred fire */
+.ceremony-card.theme-fire {
+  background: linear-gradient(165deg, #EA9257 0%, #C1440E 55%, #7A1F2B 100%);
+  border-color: #a8431f;
+}
+.ceremony-card.theme-fire .ceremony-tag { color: #FFE3B0; }
+.ceremony-card.theme-fire .ceremony-name { color: #FFF6E8; }
+.ceremony-card.theme-fire .ceremony-meta { color: rgba(255,246,232,.88); }
+.ceremony-card.theme-fire .ceremony-avatar {
+  background: radial-gradient(circle at 34% 30%, #ffe3b0 0%, #C1440E 75%);
+  box-shadow: 0 10px 22px -10px rgba(122,31,43,.55), inset 0 2px 5px rgba(255,255,255,.35);
+}
+@keyframes flameFlicker {
+  0%, 100% { transform: scaleY(1) rotate(0deg); }
+  30% { transform: scaleY(1.1) rotate(-3deg); }
+  60% { transform: scaleY(.92) rotate(2deg); }
+}
+.avatar-pheras .flame, .avatar-pheras .flame-inner {
+  animation: flameFlicker 1.5s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+
+/* theme: Barat & Reception - royal gold */
+.ceremony-card.theme-royal {
+  background: linear-gradient(165deg, #D9AE49 0%, #7A1F2B 62%, #4a1420 100%);
+  border-color: #8a6a2a;
+}
+.ceremony-card.theme-royal .ceremony-tag { color: #FCE7B0; }
+.ceremony-card.theme-royal .ceremony-name { color: #FFF7E6; }
+.ceremony-card.theme-royal .ceremony-meta { color: rgba(255,247,230,.88); }
+.ceremony-card.theme-royal .ceremony-avatar {
+  background: radial-gradient(circle at 34% 30%, #fbe7ab 0%, #7A1F2B 78%);
+  box-shadow: 0 10px 22px -10px rgba(122,31,43,.55), inset 0 2px 5px rgba(255,255,255,.35);
+}
+@keyframes bellSwing {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(7deg); }
+  75% { transform: rotate(-7deg); }
+}
+.avatar-baratReception .bell { animation: bellSwing 2.6s ease-in-out infinite; transform-origin: 50% 15%; }
+@keyframes rayPulse {
+  0%, 100% { opacity: .55; transform: scale(.92); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+.avatar-baratReception .burst-rays { animation: rayPulse 2.1s ease-in-out infinite; transform-origin: center; }
+
+/* ---------- Footer ---------- */
+.footer-section { background: linear-gradient(160deg, var(--color-primary-dark), #4a1420); color: #f6e6d2; }
+.footer-names { font-size: 2.2rem; margin: 0 0 6px; color: #fbe6b8; }
+.divider { display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--color-gold-light); margin: 6px 0 22px; font-size: .8rem; }
+.divider span { width: 40px; height: 1px; background: var(--color-gold-light); opacity: .6; }
+
+.footer-block { margin: 0 0 30px; }
+.footer-block:last-child { margin-bottom: 0; }
+.footer-block-title {
+  font-family: var(--font-display);
+  font-size: .72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+  margin: 0 0 12px;
+}
+.footer-list { list-style: none; padding: 0; margin: 0; font-size: .95rem; line-height: 1.9; opacity: .92; }
+.footer-lines { font-size: .95rem; line-height: 1.7; opacity: .92; }
+.footer-lines p { margin: 0; }
+.footer-mobiles { margin: 10px 0 0; font-size: .88rem; letter-spacing: .5px; opacity: .85; }
+.footer-invitation-name { font-family: var(--font-script); font-size: 1.4rem; color: #fbe6b8; margin: 0 0 6px; }
+.footer-block-invitation { padding-top: 12px; border-top: 1px solid rgba(246,223,169,.25); }
+
+/* ---------------------------------------------------------------------
+   AUDIO TOGGLE (fixed to the card via transform trick on .app-frame)
+   --------------------------------------------------------------------- */
+.audio-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 25;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  color: #fff9ef;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 20px -8px rgba(193,68,14,.6);
+  cursor: pointer;
+}
+.audio-toggle svg { width: 22px; height: 22px; }
+.audio-toggle .icon-off { display: none; }
+.audio-toggle.is-muted .icon-on { display: none; }
+.audio-toggle.is-muted .icon-off { display: block; }
+
+/* ---------------------------------------------------------------------
+   RESPONSIVE TWEAKS
+   --------------------------------------------------------------------- */
+@media (min-width: 400px) {
+  .gallery-carousel { max-width: 380px; }
+}
+
+@media (min-width: 700px) {
+  .section-title { font-size: 2.7rem; }
+  .couple-name { font-size: 3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal, .seal-btn, .seal-ring, .scroll-arrow { animation: none !important; }
+  .section { transition: none; }
+}

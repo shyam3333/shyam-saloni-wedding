@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#7A1F2B">
+<title>Shyam &amp; Saloni | Wedding Invitation</title>
+<meta name="description" content="You're invited to the wedding of Shyam & Saloni">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-frame locked" id="appFrame">
+
+  <div class="petal-layer" id="petalLayer" aria-hidden="true"></div>
+
+  <!-- ===================== COVER ===================== -->
+  <section id="cover" class="cover">
+    <div class="corner corner-tl" aria-hidden="true"></div>
+    <div class="corner corner-tr" aria-hidden="true"></div>
+    <div class="corner corner-bl" aria-hidden="true"></div>
+    <div class="corner corner-br" aria-hidden="true"></div>
+
+    <p class="cover-invite" data-bind="coverInviteLine"></p>
+
+    <div class="seal-wrap">
+      <button id="sealBtn" class="seal-btn" aria-label="Tap to reveal the invitation">
+        <svg class="seal-ring" viewBox="0 0 200 200">
+          <path id="sealTextPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" fill="none"/>
+          <text class="seal-ring-text">
+            <textPath href="#sealTextPath" startOffset="0%">✦ Tap to Reveal ✦ Tap to Reveal ✦ Tap to Reveal</textPath>
+          </text>
+        </svg>
+        <span class="seal-face">
+          <img id="sealLogo" class="seal-logo" src="assets/images/logo.png" alt="Shyam &amp; Saloni monogram">
+        </span>
+      </button>
+    </div>
+
+    <p class="cover-tag">Wedding Day</p>
+  </section>
+
+  <!-- ===================== NAME SPLASH ===================== -->
+  <section id="nameSplash" class="name-splash" hidden>
+    <svg class="rj-arch rj-arch-top" viewBox="0 0 240 90" aria-hidden="true">
+      <path d="M6 88V46C6 20 36 6 120 6s114 14 114 40v42" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M30 88V52c0-16 22-28 90-28s90 12 90 28v36" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".7"/>
+      <circle cx="120" cy="14" r="4" fill="currentColor"/>
+    </svg>
+
+    <h1 class="name-splash-title">
+      <span data-bind="couple.groom"></span>
+      <em>&amp;</em>
+      <span data-bind="couple.bride"></span>
+    </h1>
+    <p class="name-splash-date" data-bind="weddingDateShort"></p>
+
+    <svg class="rj-arch rj-arch-bottom" viewBox="0 0 240 90" aria-hidden="true">
+      <path d="M6 2v42c0 26 30 40 114 40s114-14 114-40V2" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M30 2v36c0 16 22 28 90 28s90-12 90-28V2" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".7"/>
+      <circle cx="120" cy="76" r="4" fill="currentColor"/>
+    </svg>
+  </section>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main id="mainContent" class="main-content">
+
+    <button id="audioToggle" class="audio-toggle" aria-label="Toggle background music" aria-pressed="false">
+      <svg viewBox="0 0 24 24" class="icon-on"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M16.5 12a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor"/><path d="M14 3.2v2.06A7 7 0 0 1 19 12a7 7 0 0 1-5 6.74v2.06A9 9 0 0 0 21 12a9 9 0 0 0-7-8.8z" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 24" class="icon-off"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M19.5 8.5l-7 7M12.5 8.5l7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <audio id="bgAudio" loop preload="none"></audio>
+
+    <!-- ---------- HERO / INTRO ---------- -->
+    <section class="section hero-section reveal">
+      <div class="ganesh-icon" aria-hidden="true">
+        <img src="assets/images/ganesh.png" alt="">
+      </div>
+      <p class="shlok">ॐ गणेशाय नमः</p>
+
+      <div class="couple-block">
+        <h2 class="couple-name script" data-bind="couple.groomFull"></h2>
+        <p class="couple-parent">Son of <span data-bind="families.groomParents"></span></p>
+        <p class="couple-grandparent">(Grandson of <span data-bind="families.groomGrandparents"></span>)</p>
+
+        <div class="ampersand" aria-hidden="true">&amp;</div>
+
+        <h2 class="couple-name script" data-bind="couple.brideFull"></h2>
+        <p class="couple-parent">Daughter of <span data-bind="families.brideParents"></span></p>
+        <p class="couple-grandparent">(Granddaughter of <span data-bind="families.brideGrandparents"></span>)</p>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- ---------- COUNTDOWN ---------- -->
+    <section class="section countdown-section reveal">
+      <p class="eyebrow">The Big Day</p>
+      <p class="quote" data-bind="tagline"></p>
+      <p class="wedding-date" data-bind="weddingDateDisplay"></p>
+
+      <div class="countdown" id="countdown">
+        <div class="countdown-unit"><span id="cd-days">00</span><small>Days</small></div>
+        <div class="countdown-unit"><span id="cd-hours">00</span><small>Hours</small></div>
+        <div class="countdown-unit"><span id="cd-mins">00</span><small>Mins</small></div>
+        <div class="countdown-unit"><span id="cd-secs">00</span><small>Secs</small></div>
+      </div>
+    </section>
+
+    <!-- ---------- GALLERY ---------- -->
+    <section class="section gallery-section reveal">
+      <p class="eyebrow">A Glimpse Of Us</p>
+      <h2 class="section-title script">Our Beautiful Moments</h2>
+
+      <div class="gallery-carousel">
+        <div class="gallery-viewport" id="galleryViewport" role="button" tabindex="0" aria-label="Tap to see the next photo">
+          <div class="gallery-track" id="galleryTrack"></div>
+          <div class="gallery-tap-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <p class="gallery-caption script" id="galleryCaption"></p>
+        <div class="gallery-dots" id="galleryDots"></div>
+        <p class="gallery-hint">Tap the photo for the next moment</p>
+      </div>
+    </section>
+
+    <!-- ---------- VENUE ---------- -->
+    <section class="section venue-section reveal">
+      <p class="eyebrow">Where Love Awaits</p>
+      <h2 class="section-title script">Our Cherished Venue</h2>
+
+      <div class="venue-card">
+        <div class="venue-illustration" id="venueIllustration" aria-hidden="true">
+          <svg viewBox="0 0 220 120" fill="none">
+            <path d="M20 110V60l90-40 90 40v50" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 110h180" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M60 110V70h20v40M140 110V70h20v40" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="110" cy="46" r="6" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M40 78h140M40 90h140" stroke="currentColor" stroke-width="1" opacity=".5"/>
+          </svg>
+        </div>
+        <h3 class="venue-name" data-bind="venue.name"></h3>
+        <p class="venue-address" data-bind="venue.address"></p>
+
+        <div class="venue-map">
+          <iframe id="venueMap" title="Venue location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <a id="directionsBtn" class="btn btn-primary" target="_blank" rel="noopener">Get Directions</a>
+      </div>
+    </section>
+
+    <!-- ---------- CEREMONIES ---------- -->
+    <section class="section ceremonies-section reveal">
+      <p class="eyebrow">Join Us For The</p>
+      <h2 class="section-title script">Sacred Ceremonies</h2>
+      <div class="ceremony-list" id="ceremonyList"></div>
+    </section>
+
+    <!-- ---------- FOOTER ---------- -->
+    <footer class="section footer-section reveal">
+      <h2 class="footer-names script">
+        <span data-bind="couple.groom"></span> &amp; <span data-bind="couple.bride"></span>
+      </h2>
+      <div class="divider" aria-hidden="true"><span></span>&#10084;<span></span></div>
+
+      <div class="footer-block">
+        <p class="footer-block-title" id="rsvpTitle"></p>
+        <ul class="footer-list" id="rsvpNames"></ul>
+        <p class="footer-mobiles" id="rsvpMobiles"></p>
+      </div>
+
+      <div class="footer-block">
+        <p class="footer-block-title" id="awaitingTitle"></p>
+        <ul class="footer-list" id="awaitingNames"></ul>
+      </div>
+
+      <div class="footer-block">
+        <p class="footer-block-title" id="complimentsTitle"></p>
+        <div class="footer-lines" id="complimentsLines"></div>
+      </div>
+
+      <div class="footer-block footer-block-invitation">
+        <p class="footer-block-title" id="invitationTitle"></p>
+        <p class="footer-invitation-name" id="invitationName"></p>
+        <div class="footer-lines" id="invitationAddress"></div>
+        <p class="footer-mobiles" id="invitationMobiles"></p>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
