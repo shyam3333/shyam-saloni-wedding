@@ -154,7 +154,13 @@
           }
         });
       },
-      { root: appFrame, threshold: 0.18 }
+      // a small, fixed threshold (rather than a larger fraction like the
+      // ~0.18 this used before) - .ceremonies-section is much taller than
+      // the viewport now that it holds 7 photo cards, so a bigger ratio
+      // threshold could need more of it visible than the viewport can
+      // ever show at once, which would silently never fire and leave the
+      // whole section stuck invisible (opacity:0) while scrolling through it
+      { root: appFrame, threshold: 0.05 }
     );
     sections.forEach((s) => observer.observe(s));
   }
@@ -421,6 +427,28 @@
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
   }
 
+  // Real pixel dimensions of each ceremony background photo. Passed as the
+  // <img>'s width/height attributes below so the browser can reserve the
+  // correct aspect-ratio box BEFORE the file downloads - without this, an
+  // image with no intrinsic size (plus `loading="lazy"`) renders at ~0
+  // height until it finishes loading, so the card is invisible/collapsed
+  // and the IntersectionObserver driving the scroll-reveal (js above, see
+  // initScrollReveal) can misjudge the section's real height, which is
+  // what made this section feel slow or blank while scrolling into it.
+  const CEREMONY_IMAGE_DIMS = {
+    "assets/images/ceremonies/manglik-bg.jpg": [800, 1200],
+    "assets/images/ceremonies/haldi-carnival-bg.jpg": [675, 1200],
+    "assets/images/ceremonies/sangeet-bg.jpg": [675, 1200],
+    "assets/images/ceremonies/pheras-bg.jpg": [675, 1200],
+    "assets/images/ceremonies/barat-reception-bg.jpg": [675, 1200],
+    "assets/images/ceremonies/bheegi-palkein-bg.jpg": [848, 1200],
+    "assets/images/ceremonies/khatu-shyam-bhajan-bg.jpg": [676, 1200]
+  };
+  function ceremonyImageAttrs(src) {
+    const dims = CEREMONY_IMAGE_DIMS[src];
+    return dims ? ` width="${dims[0]}" height="${dims[1]}"` : "";
+  }
+
   function renderCeremonies() {
     const list = document.getElementById("ceremonyList");
     if (!list) return;
@@ -472,7 +500,7 @@
           return `
           <div class="ceremony-card ceremony-card--photo ${modifierClasses} theme-${c.theme}"${styleAttr}>
             <div class="ceremony-bg-photo${mapHtml ? " ceremony-bg-photo--top-only" : ""}">
-              <img src="${c.bgImage}" alt="" loading="lazy">
+              <img src="${c.bgImage}" alt="" loading="lazy"${ceremonyImageAttrs(c.bgImage)}>
               <div class="ceremony-photo-overlay"></div>
               <div class="ceremony-photo-content">
                 <h3 class="ceremony-name script">${c.name}</h3>
@@ -524,7 +552,7 @@
           return `
           <div class="ceremony-card ceremony-card--photo ${modifierClasses} theme-${c.theme}"${styleAttr}>
             <div class="ceremony-bg-photo">
-              <img src="${c.bgImage}" alt="" loading="lazy">
+              <img src="${c.bgImage}" alt="" loading="lazy"${ceremonyImageAttrs(c.bgImage)}>
               <div class="ceremony-photo-overlay"></div>
               <div class="ceremony-photo-content">${textBlock}</div>
             </div>
