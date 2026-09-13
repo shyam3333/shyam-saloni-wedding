@@ -197,14 +197,16 @@ window.WEDDING_CONFIG = {
     {
       icon: "baratReception",
       theme: "blush",
-      name: "Vidaai",
+      name: "Bheegi Palkein (Vidaai)",
       subtitle: "From celebration to farewell, wrapped in love and tears",
       date: "November 27, 2026",
       time: "Early Morning",
       venue: "Madhogarh",
       bgImage: "assets/images/ceremonies/bheegi-palkein-bg.jpg",
       darkText: true,
-      textTop: "30%"
+      compactText: true,
+      titleMaxWidth: "62%",
+      textTop: "26%"
     },
     {
       icon: "pheras",
@@ -217,7 +219,7 @@ window.WEDDING_CONFIG = {
       darkText: true,
       compactText: true,
       titleMaxWidth: "66%",
-      textTop: "43%",
+      textTop: "26%",
       deityPhoto: "assets/images/khatushyam.png",
       schedule: [
         { label: "Bhajan Sandhya", time: "5:00 PM onwards" },

@@ -523,13 +523,13 @@
           : `<p class="ceremony-meta">${c.time}</p>`;
 
         const textBlock = `
+          ${c.deityPhoto ? `<div class="ceremony-deity-photo"><img src="${c.deityPhoto}" alt=""></div>` : ""}
           <h3 class="ceremony-name script">${c.name}</h3>
           ${c.subtitle ? `<p class="ceremony-subtitle">${c.subtitle}</p>` : ""}
           <p class="ceremony-meta">${c.date}</p>
           ${scheduleOrTime}
           ${c.venue ? `<p class="ceremony-venue-line">Venue &mdash; ${c.venue}</p>` : ""}
           ${c.themeLabel ? `<span class="ceremony-theme-badge">${c.themeLabel}</span>` : ""}
-          ${c.deityPhoto ? `<div class="ceremony-deity-photo"><img src="${c.deityPhoto}" alt=""></div>` : ""}
         `;
 
         // photo-background card: the given photo fills the whole card,
