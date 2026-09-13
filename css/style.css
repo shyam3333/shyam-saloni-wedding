@@ -636,6 +636,30 @@ button { font-family: inherit; }
   display: block;
 }
 
+/* the same deity photo used on the cover, shown as a slightly larger
+   framed charm at the bottom of a ceremony card (e.g. Khatu Shyam
+   Bhajan) - the source is a transparent-background cutout, not a
+   rectangular photo, so it sits on a soft cream disc via object-fit:
+   contain rather than being cropped with object-fit:cover */
+.ceremony-deity-photo {
+  width: 108px;
+  height: 108px;
+  margin: 14px auto 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8ec 0%, #f2e3c8 100%);
+  border: 3px solid #D9A441;
+  box-shadow: 0 8px 20px -8px rgba(60,30,20,.45);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.ceremony-deity-photo img {
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
+  display: block;
+}
+
 /* --- decorative scene layer (arch/curtain silhouette + couple silhouette)
    sitting behind the text but above the card's gradient background --- */
 .ceremony-scene {

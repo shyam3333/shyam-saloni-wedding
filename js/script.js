@@ -529,6 +529,7 @@
           ${scheduleOrTime}
           ${c.venue ? `<p class="ceremony-venue-line">Venue &mdash; ${c.venue}</p>` : ""}
           ${c.themeLabel ? `<span class="ceremony-theme-badge">${c.themeLabel}</span>` : ""}
+          ${c.deityPhoto ? `<div class="ceremony-deity-photo"><img src="${c.deityPhoto}" alt=""></div>` : ""}
         `;
 
         // photo-background card: the given photo fills the whole card,

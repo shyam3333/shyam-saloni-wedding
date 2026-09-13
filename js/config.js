@@ -217,7 +217,8 @@ window.WEDDING_CONFIG = {
       darkText: true,
       compactText: true,
       titleMaxWidth: "66%",
-      textTop: "47%",
+      textTop: "43%",
+      deityPhoto: "assets/images/khatushyam.png",
       schedule: [
         { label: "Bhajan Sandhya", time: "5:00 PM onwards" },
         { label: "Dinner", time: "8:00 PM onwards" }
