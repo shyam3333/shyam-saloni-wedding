@@ -148,6 +148,44 @@ button { font-family: inherit; }
 }
 .cover.is-hiding { opacity: 0; transform: scale(1.04); pointer-events: none; }
 
+.cover-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.deity-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 320px;
+}
+
+.deity-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 84px;
+}
+
+.deity-photo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,.4));
+}
+
+.deity-shlok {
+  margin: 0;
+  font-size: .72rem;
+  line-height: 1.3;
+  color: #fbe6b8;
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
+
 .cover-invite {
   font-size: 1.05rem;
   line-height: 1.5;

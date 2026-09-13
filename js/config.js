@@ -67,7 +67,7 @@ window.WEDDING_CONFIG = {
   // link, used by "Get Directions" (falls back to a search on `address`).
   venue: {
     name: "Madhogarh, Jaipur",
-    address: "Grand Sikar Road, Before Rajawas Pulia, Jaipur, Rajasthan – 303704",
+    address: "Grand Sikar Road, Before Rajawas Pulia, Jaipur, Rajasthan – 302048",
     mapQuery: "27.0540141,75.754726",
     directionsUrl: "https://www.google.com/maps/place/Madhogarh/@27.0540141,75.7521511,17z/data=!4m9!3m8!1s0x396dad4860958c3d:0xf1d95c6356ddb17d!5m2!4m1!1i2!8m2!3d27.0540141!4d75.754726!16s%2Fg%2F11rhsvg8yj!5m1!1e1",
     img: null
@@ -113,7 +113,7 @@ window.WEDDING_CONFIG = {
           date: "22 November 2026",
           items: [
             { label: "Gehu Kirana", time: "11:00 AM" },
-            { label: "Peedi Bandna", time: "3:00 PM" },
+            { label: "Peedi Bandhna", time: "3:00 PM" },
             { label: "Ratjaga", time: "10:30 PM" }
           ]
         },
@@ -235,7 +235,7 @@ window.WEDDING_CONFIG = {
       title: "A Cordial Invitation From",
       name: "Er. Sanjeev Kumar (Ex. General Manager- REIL) & Mrs. Rekha Rani",
       address: [
-        "7, Mitra Colony, Khatipura Mod, Khatipura,",
+        "Laxmi Niwas, 7, Mitra Colony, Khatipura Mod, Khatipura,",
         "Jaipur, Rajasthan - 302012"
       ],
       mobiles: ["9829747744", "8769775976"]
