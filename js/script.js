@@ -245,6 +245,20 @@
   initGalleryCarousel();
 
   /* ----------------------------------------------------------------
+     Embedded Google Maps iframes (venue + Manglik) capture touch-drag
+     for panning the map itself, which silently "eats" a visitor's
+     scroll gesture on a phone - it feels like the page has stopped
+     scrolling/loading right at the map. A transparent guard button sits
+     on top of every map until it's explicitly tapped once, so a normal
+     swipe over that area keeps scrolling the page like everything else;
+     only a real tap unlocks the map underneath for panning/zooming.
+     ---------------------------------------------------------------- */
+  document.addEventListener("click", (e) => {
+    const guard = e.target.closest(".map-tap-guard");
+    if (guard) guard.remove();
+  });
+
+  /* ----------------------------------------------------------------
      Venue map + directions
      ---------------------------------------------------------------- */
   function renderVenue() {
@@ -439,6 +453,7 @@
             <div class="ceremony-extra">
               <div class="ceremony-venue-map">
                 <iframe title="${c.venue || "Venue"} location" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="${ceremonyMapEmbedSrc(c.venueMap)}"></iframe>
+                <button type="button" class="map-tap-guard" aria-label="Tap to interact with the map"><span>Tap to explore map</span></button>
               </div>
               <a class="btn btn-primary ceremony-directions-btn" href="${ceremonyDirectionsHref(c.venueMap)}" target="_blank" rel="noopener">Get Directions</a>
             </div>`
@@ -461,6 +476,7 @@
               <div class="ceremony-photo-overlay"></div>
               <div class="ceremony-photo-content">
                 <h3 class="ceremony-name script">${c.name}</h3>
+                ${c.subtitle ? `<p class="ceremony-subtitle">${c.subtitle}</p>` : ""}
                 <div class="ceremony-schedule-groups">${groupsHtml}</div>
                 ${c.venue ? `<p class="ceremony-venue-line">Venue &mdash; ${c.venue}</p>` : ""}
               </div>
@@ -480,6 +496,7 @@
 
         const textBlock = `
           <h3 class="ceremony-name script">${c.name}</h3>
+          ${c.subtitle ? `<p class="ceremony-subtitle">${c.subtitle}</p>` : ""}
           <p class="ceremony-meta">${c.date}</p>
           ${scheduleOrTime}
           ${c.venue ? `<p class="ceremony-venue-line">Venue &mdash; ${c.venue}</p>` : ""}
@@ -492,11 +509,18 @@
           const modifierClasses = [
             c.darkText ? "ceremony-card--photo-dark" : "",
             c.textTop ? "ceremony-card--photo-anchored" : "",
-            c.boldText ? "ceremony-card--extra-bold" : ""
+            c.boldText ? "ceremony-card--extra-bold" : "",
+            c.compactText ? "ceremony-card--photo-compact" : ""
           ]
             .filter(Boolean)
             .join(" ");
-          const styleAttr = c.textTop ? ` style="--photo-text-top:${c.textTop}"` : "";
+          const styleVars = [
+            c.textTop ? `--photo-text-top:${c.textTop}` : "",
+            c.titleMaxWidth ? `--ceremony-title-max:${c.titleMaxWidth}` : ""
+          ]
+            .filter(Boolean)
+            .join(";");
+          const styleAttr = styleVars ? ` style="${styleVars}"` : "";
           return `
           <div class="ceremony-card ceremony-card--photo ${modifierClasses} theme-${c.theme}"${styleAttr}>
             <div class="ceremony-bg-photo">

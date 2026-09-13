@@ -102,7 +102,7 @@ window.WEDDING_CONFIG = {
       name: "Manglik Programme",
       bgImage: "assets/images/ceremonies/manglik-bg.jpg",
       darkText: true,
-      textTop: "18%",
+      textTop: "24%",
       venue: "Home",
       venueMap: {
         mapQuery: "26.9234102,75.7480169",
@@ -137,6 +137,7 @@ window.WEDDING_CONFIG = {
       icon: "haldiCarnival",
       theme: "lavender",
       name: "Haldi Carnival",
+      subtitle: "Colorful Fiesta",
       date: "25th November 2026",
       time: "1:30 PM onwards",
       themeLabel: "Shades Of Lavender",
@@ -149,16 +150,19 @@ window.WEDDING_CONFIG = {
       icon: "sangeetDark",
       theme: "dark",
       name: "Engagement & Sangeet with Cocktail & Dinner",
+      subtitle: "Sip, Sparkle & Say ‘Yes’",
       date: "25th November 2026",
       time: "5:30 PM onwards",
       themeLabel: "Glam and Glitter",
       venue: "Madhogarh",
-      bgImage: "assets/images/ceremonies/sangeet-bg.jpg"
+      bgImage: "assets/images/ceremonies/sangeet-bg.jpg",
+      textTop: "23%"
     },
     {
       icon: "pheras",
       theme: "fire",
       name: "Musical Pheras",
+      subtitle: "Sacred Vows Of Forever",
       date: "26th November 2026",
       themeLabel: "",
       venue: "Madhogarh",
@@ -176,6 +180,7 @@ window.WEDDING_CONFIG = {
       icon: "baratReception",
       theme: "royal",
       name: "Barat on Wheels & Reception",
+      subtitle: "Happily Ever After Party",
       date: "26th November 2026",
       themeLabel: "",
       venue: "Madhogarh",
@@ -187,6 +192,35 @@ window.WEDDING_CONFIG = {
         { label: "Barat", time: "7:30 PM" },
         { label: "Dinner", time: "8:00 PM onwards" },
         { label: "Varmala", time: "9:30 PM" }
+      ]
+    },
+    {
+      icon: "baratReception",
+      theme: "blush",
+      name: "Vidaai",
+      subtitle: "From celebration to farewell, wrapped in love and tears",
+      date: "November 27, 2026",
+      time: "Early Morning",
+      venue: "Madhogarh",
+      bgImage: "assets/images/ceremonies/bheegi-palkein-bg.jpg",
+      darkText: true,
+      textTop: "30%"
+    },
+    {
+      icon: "pheras",
+      theme: "royal",
+      name: "Shree Khatu Shyam Bhajan",
+      date: "November 27, 2026",
+      themeLabel: "",
+      venue: "Home",
+      bgImage: "assets/images/ceremonies/khatu-shyam-bhajan-bg.jpg",
+      darkText: true,
+      compactText: true,
+      titleMaxWidth: "66%",
+      textTop: "47%",
+      schedule: [
+        { label: "Bhajan Sandhya", time: "5:00 PM onwards" },
+        { label: "Dinner", time: "8:00 PM onwards" }
       ]
     }
   ],
