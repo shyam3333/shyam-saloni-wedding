@@ -71,10 +71,47 @@
     }
   }
 
+  /* ----------------------------------------------------------------
+     Background music - shared play/pause so the seal-tap (a real user
+     gesture, which browsers allow to start audio) can turn the music on
+     by default, while the floating button can still toggle it afterwards
+     ---------------------------------------------------------------- */
+  let musicPlaying = false;
+  function setMusicButtonState(playing) {
+    const btn = document.getElementById("audioToggle");
+    if (!btn) return;
+    btn.classList.toggle("is-muted", !playing);
+    btn.setAttribute("aria-pressed", playing ? "true" : "false");
+  }
+  function playMusic() {
+    const audio = document.getElementById("bgAudio");
+    if (!audio || musicPlaying) return;
+    audio.play().then(() => {
+      musicPlaying = true;
+      setMusicButtonState(true);
+    }).catch(() => {
+      // Autoplay blocked, or no music file yet - fail silently; the
+      // floating button still lets a visitor start it manually.
+      setMusicButtonState(false);
+    });
+  }
+  function pauseMusic() {
+    const audio = document.getElementById("bgAudio");
+    if (!audio) return;
+    audio.pause();
+    musicPlaying = false;
+    setMusicButtonState(false);
+  }
+
   let revealed = false;
   function revealInvitation() {
     if (revealed) return;
     revealed = true;
+
+    // this tap is a genuine user gesture, so it's allowed to start audio
+    // playback even under strict autoplay policies - this is what makes
+    // the music "on by default" without the visitor tapping a second button
+    playMusic();
 
     sealBtn.classList.add("is-cracking");
     burstSparks(sealBtn);
@@ -538,25 +575,10 @@
     if (!btn || !audio) return;
     if (CONFIG.audio && CONFIG.audio.src) audio.src = CONFIG.audio.src;
 
-    let playing = false;
-    btn.classList.add("is-muted");
-
+    setMusicButtonState(false);
     btn.addEventListener("click", () => {
-      if (!playing) {
-        audio.play().then(() => {
-          playing = true;
-          btn.classList.remove("is-muted");
-          btn.setAttribute("aria-pressed", "true");
-        }).catch(() => {
-          // No audio file yet, or browser blocked playback - fail silently.
-          btn.classList.add("is-muted");
-        });
-      } else {
-        audio.pause();
-        playing = false;
-        btn.classList.add("is-muted");
-        btn.setAttribute("aria-pressed", "false");
-      }
+      if (musicPlaying) pauseMusic();
+      else playMusic();
     });
   }
   initAudio();
