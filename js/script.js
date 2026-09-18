@@ -9,6 +9,20 @@
   const appFrame = document.getElementById("appFrame");
 
   /* ----------------------------------------------------------------
+     Dancing Script's own "&" glyph is a stylized loop that doesn't read
+     clearly as an ampersand - this swaps every "&" in a piece of text
+     for one wrapped in .amp, which forces a plain, ordinary ampersand
+     (see .amp in style.css). Only used for text rendered in script-font
+     headings (ceremony names, the footer host name) - normal body-text
+     lines (family details, footer name lists) already show a perfectly
+     fine ampersand in their own font, so leave those alone rather than
+     make "&" stand out bold/mismatched among them.
+     ---------------------------------------------------------------- */
+  function styledAmpersand(text) {
+    return String(text).replace(/&/g, '<span class="amp">&</span>');
+  }
+
+  /* ----------------------------------------------------------------
      Small helper: fill every [data-bind="path.to.value"] element with
      the matching value from CONFIG.
      ---------------------------------------------------------------- */
@@ -20,6 +34,17 @@
     });
   }
   bindText(document, CONFIG);
+
+  // The grandparent lines ("(Grandson of ... & Late Smt. ...)") are
+  // italic (.couple-grandparent), and Cormorant Garamond's italic "&" is
+  // a swash form that doesn't read clearly either - just cancel the
+  // italic on the ampersand (.amp-upright), not swap fonts like
+  // styledAmpersand does, so it stays the same weight as the text
+  // around it instead of reading bold.
+  ["families.groomGrandparents", "families.brideGrandparents"].forEach((path) => {
+    const el = document.querySelector(`[data-bind="${path}"]`);
+    if (el) el.innerHTML = el.textContent.replace(/&/g, '<span class="amp-upright">&</span>');
+  });
 
   /* ----------------------------------------------------------------
      Floating petals
@@ -503,8 +528,8 @@
               <img src="${c.bgImage}" alt="" loading="lazy"${ceremonyImageAttrs(c.bgImage)}>
               <div class="ceremony-photo-overlay"></div>
               <div class="ceremony-photo-content">
-                <h3 class="ceremony-name script">${c.name}</h3>
-                ${c.subtitle ? `<p class="ceremony-subtitle">${c.subtitle}</p>` : ""}
+                <h3 class="ceremony-name script">${styledAmpersand(c.name)}</h3>
+                ${c.subtitle ? `<p class="ceremony-subtitle"${c.subtitleMaxWidth ? ` style="--ceremony-subtitle-max:${c.subtitleMaxWidth}"` : ""}>${c.subtitle}</p>` : ""}
                 <div class="ceremony-schedule-groups">${groupsHtml}</div>
                 ${c.venue ? `<p class="ceremony-venue-line">Venue &mdash; ${c.venue}</p>` : ""}
               </div>
@@ -524,8 +549,8 @@
 
         const textBlock = `
           ${c.deityPhoto ? `<div class="ceremony-deity-photo"><img src="${c.deityPhoto}" alt=""></div>` : ""}
-          <h3 class="ceremony-name script">${c.name}</h3>
-          ${c.subtitle ? `<p class="ceremony-subtitle">${c.subtitle}</p>` : ""}
+          <h3 class="ceremony-name script">${styledAmpersand(c.name)}</h3>
+          ${c.subtitle ? `<p class="ceremony-subtitle"${c.subtitleMaxWidth ? ` style="--ceremony-subtitle-max:${c.subtitleMaxWidth}"` : ""}>${c.subtitle}</p>` : ""}
           <p class="ceremony-meta">${c.date}</p>
           ${scheduleOrTime}
           ${c.venue ? `<p class="ceremony-venue-line">Venue &mdash; ${c.venue}</p>` : ""}
@@ -583,6 +608,12 @@
       const el = document.getElementById(id);
       if (el && text) el.textContent = text;
     }
+    // like setText, but for the one field (the host name) that's in
+    // script-font and needs its "&" (if any) swapped via styledAmpersand
+    function setHtml(id, html) {
+      const el = document.getElementById(id);
+      if (el && html) el.innerHTML = html;
+    }
     function renderNames(id, names) {
       const el = document.getElementById(id);
       if (!el) return;
@@ -596,6 +627,14 @@
     function mobilesText(mobiles) {
       if (!mobiles || !mobiles.length) return "";
       return (mobiles.length > 1 ? "Mob : " : "Mob : ") + mobiles.join(", ");
+    }
+
+    const childRequest = footer.childRequest;
+    if (childRequest) {
+      document.getElementById("childRequestBlock").hidden = false;
+      setText("childRequestTitle", childRequest.title);
+      setHtml("childRequestMessage", styledAmpersand(childRequest.message));
+      setHtml("childRequestNames", styledAmpersand(childRequest.names));
     }
 
     const rsvp = footer.rsvp || {};
@@ -613,7 +652,7 @@
 
     const invitation = footer.invitation || {};
     setText("invitationTitle", invitation.title);
-    setText("invitationName", invitation.name);
+    setHtml("invitationName", styledAmpersand(invitation.name));
     renderLines("invitationAddress", invitation.address);
     setText("invitationMobiles", mobilesText(invitation.mobiles));
   }

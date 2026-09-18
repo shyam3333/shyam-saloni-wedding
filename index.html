@@ -183,9 +183,15 @@
     <!-- ---------- FOOTER ---------- -->
     <footer class="section footer-section reveal">
       <h2 class="footer-names script">
-        <span data-bind="couple.groom"></span> &amp; <span data-bind="couple.bride"></span>
+        <span data-bind="couple.groom"></span> <span class="amp">&amp;</span> <span data-bind="couple.bride"></span>
       </h2>
       <div class="divider" aria-hidden="true"><span></span>&#10084;<span></span></div>
+
+      <div class="footer-block" id="childRequestBlock" hidden>
+        <p class="footer-block-title" id="childRequestTitle"></p>
+        <p class="footer-child-request-message" id="childRequestMessage"></p>
+        <p class="footer-child-request-names" id="childRequestNames"></p>
+      </div>
 
       <div class="footer-block">
         <p class="footer-block-title" id="rsvpTitle"></p>

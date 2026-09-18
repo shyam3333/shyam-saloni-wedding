@@ -32,7 +32,7 @@ window.WEDDING_CONFIG = {
     groomFamilyName: "Varshney",
     brideFamilyName: "Varshney",
     groomParents: "Er. Sanjeev Kumar Varshney & Mrs. Rekha Rani",
-    groomGrandparents: "Late Shri Ram Krishna Varshney & Late Smt. Laxmi Devi",
+    groomGrandparents: "Late Shri Ram Krishna Varshney (BDO) & Late Smt. Laxmi Devi",
     brideParents: "Mr. Shri Mohan Varshney & Mrs. Ritu Gupta",
     brideGrandparents: "Late Shri Jagdish Prasad Gupta & Late Smt. Anara Devi"
   },
@@ -149,7 +149,7 @@ window.WEDDING_CONFIG = {
     {
       icon: "sangeetDark",
       theme: "dark",
-      name: "Engagement & Sangeet with Cocktail & Dinner",
+      name: "Engagement & Sangeet with Celebration & Dinner",
       subtitle: "Sip, Sparkle & Say ‘Yes’",
       date: "25th November 2026",
       time: "5:30 PM onwards",
@@ -172,7 +172,7 @@ window.WEDDING_CONFIG = {
       textTop: "24%",
       schedule: [
         { label: "Bhaat (Bride)", time: "11:00 AM" },
-        { label: "Sagai And Agoni", time: "1:30 PM" },
+        { label: "Sagai And Aagoni", time: "1:30 PM" },
         { label: "Musical Pheras", time: "3:30 PM" }
       ]
     },
@@ -197,16 +197,15 @@ window.WEDDING_CONFIG = {
     {
       icon: "baratReception",
       theme: "blush",
-      name: "Bheegi Palkein (Vidaai)",
+      name: "Vidai",
       subtitle: "From celebration to farewell, wrapped in love and tears",
+      subtitleMaxWidth: "72%",
       date: "November 27, 2026",
       time: "Early Morning",
       venue: "Madhogarh",
       bgImage: "assets/images/ceremonies/bheegi-palkein-bg.jpg",
       darkText: true,
-      compactText: true,
-      titleMaxWidth: "62%",
-      textTop: "26%"
+      textTop: "30%"
     },
     {
       icon: "pheras",
@@ -238,6 +237,12 @@ window.WEDDING_CONFIG = {
 
   // ---- Footer ---------------------------------------------------------
   footer: {
+    // shown as its own block at the very start of the footer, above R.S.V.P.
+    childRequest: {
+      title: "Child Request",
+      message: "Haldi Hai Chandan Hai, Rishto Ka Bandhan Hai, Mere Mama/Chacha Ki Shadi Mein Aap Sab Ka Abhinandan Hai...",
+      names: "Akshaj, Arnav, Suhrid, Shubhangi, Swastik, Vidhaan, Durvi, Advika, Madhav, Anahat, Som"
+    },
     rsvp: {
       title: "R.S.V.P.",
       names: [
