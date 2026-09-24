@@ -31,10 +31,10 @@ window.WEDDING_CONFIG = {
   families: {
     groomFamilyName: "Varshney",
     brideFamilyName: "Varshney",
-    groomParents: "Er. Sanjeev Kumar Varshney & Mrs. Rekha Rani",
-    groomGrandparents: "Late Shri Ram Krishna Varshney (BDO) & Late Smt. Laxmi Devi",
-    brideParents: "Mr. Shri Mohan Varshney & Mrs. Ritu Gupta",
-    brideGrandparents: "Late Shri Jagdish Prasad Gupta & Late Smt. Anara Devi"
+    groomParents: "Mrs. Rekha Rani & Er. Sanjeev Kumar Varshney",
+    groomGrandparents: "Late Smt. Laxmi Devi & Late Shri Ram Krishna Varshney (BDO)",
+    brideParents: "Mrs. Ritu Gupta & Mr. Shri Mohan Varshney",
+    brideGrandparents: "Late Smt. Anara Devi & Late Shri Jagdish Prasad Gupta"
   },
 
   // ---- Cover / intro text --------------------------------------------
