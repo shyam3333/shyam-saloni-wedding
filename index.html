@@ -156,6 +156,7 @@
         </div>
         <h3 class="venue-name" data-bind="venue.name"></h3>
         <p class="venue-address" data-bind="venue.address"></p>
+        <p class="venue-mobile" data-bind="venue.mobile"></p>
 
         <div class="venue-map">
           <iframe id="venueMap" title="Venue location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -187,12 +188,6 @@
       </div>
 
       <div class="footer-block">
-        <p class="footer-block-title" id="rsvpTitle"></p>
-        <ul class="footer-list" id="rsvpNames"></ul>
-        <p class="footer-mobiles" id="rsvpMobiles"></p>
-      </div>
-
-      <div class="footer-block">
         <p class="footer-block-title" id="awaitingTitle"></p>
         <ul class="footer-list" id="awaitingNames"></ul>
       </div>
@@ -200,6 +195,12 @@
       <div class="footer-block">
         <p class="footer-block-title" id="complimentsTitle"></p>
         <div class="footer-lines" id="complimentsLines"></div>
+      </div>
+
+      <div class="footer-block">
+        <p class="footer-block-title" id="rsvpTitle"></p>
+        <ul class="footer-list" id="rsvpNames"></ul>
+        <p class="footer-mobiles" id="rsvpMobiles"></p>
       </div>
 
       <div class="footer-block footer-block-invitation">

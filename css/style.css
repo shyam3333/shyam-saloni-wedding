@@ -535,6 +535,7 @@ button { font-family: inherit; }
 }
 
 /* ---------- Venue ---------- */
+.venue-mobile { margin: -12px auto 20px; font-size: .92rem; letter-spacing: .6px; color: var(--color-text-soft); }
 .venue-card { margin-top: 20px; }
 .venue-illustration { width: 100px; margin: 0 auto 10px; color: var(--color-gold); }
 .venue-name { font-family: var(--font-script); font-size: 1.9rem; color: var(--color-primary-dark); margin: 4px 0; }
@@ -764,9 +765,19 @@ button { font-family: inherit; }
 }
 
 .ceremony-schedule { margin: 6px 0 2px; }
-.ceremony-schedule-item { font-size: clamp(.76rem, 3.1vw, .92rem); margin: 4px 0; }
+.ceremony-schedule-item {
+  font-size: clamp(.76rem, 3.1vw, .92rem);
+  margin: 4px 0;
+  /* programme name on the left, its time on the right - every row lines up */
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 18px;
+  text-align: left;
+}
+.ceremony-schedule-time { white-space: nowrap; }
 .ceremony-schedule-label { font-weight: 700; }
-.ceremony-venue-line { font-size: clamp(.7rem, 2.85vw, .85rem); font-style: italic; margin: 10px 0 0; }
+.ceremony-venue-line { font-size: clamp(.7rem, 2.85vw, .85rem); font-style: italic; margin: var(--venue-gap, 10px) 0 0; }
 
 /* extra-bold variant (Musical Pheras, Barat on Wheels & Reception): a
    stronger weight on top of the usual dark/white photo-text treatment */
@@ -825,6 +836,23 @@ button { font-family: inherit; }
 .ceremony-card--photo-compact .ceremony-schedule-date { font-size: clamp(.52rem, 2.1vw, .64rem); margin-bottom: 2px; }
 .ceremony-card--photo-compact .ceremony-schedule-item { font-size: clamp(.62rem, 2.5vw, .76rem); margin: 0; line-height: 1.4; }
 .ceremony-card--photo-compact .ceremony-venue-line { font-size: clamp(.6rem, 2.45vw, .74rem); margin-top: 8px; max-width: 68%; line-height: 1.35; }
+
+/* an even denser variant for a card with many dated groups (Manglik
+   Programme with four dates) - smaller type and tighter gaps so the whole
+   schedule still ends above the artwork at the bottom of the photo */
+.ceremony-card--photo-dense .ceremony-photo-content .ceremony-name { font-size: clamp(1.15rem, 4.7vw, 1.4rem); margin-bottom: 9px; }
+.ceremony-card--photo-dense .ceremony-schedule-groups { margin-left: -5%; margin-right: -5%; }
+.ceremony-card--photo-dense .ceremony-schedule-group { margin-bottom: 8px; }
+.ceremony-card--photo-dense .ceremony-schedule-date { font-size: clamp(.52rem, 2.1vw, .62rem); margin-bottom: 2px; }
+.ceremony-card--photo-dense .ceremony-schedule-item { font-size: clamp(.62rem, 2.6vw, .76rem); line-height: 1.35; gap: 28px; }
+.ceremony-card--photo-dense .ceremony-venue-line { font-size: clamp(.62rem, 2.6vw, .76rem); margin-top: 8px; }
+@media (max-width: 345px) {
+  .ceremony-card--photo-dense .ceremony-photo-content .ceremony-name { margin-bottom: 5px; }
+  .ceremony-card--photo-dense .ceremony-schedule-group { margin-bottom: 4px; }
+  .ceremony-card--photo-dense .ceremony-schedule-date { font-size: .5rem; margin-bottom: 0; }
+  .ceremony-card--photo-dense .ceremony-schedule-item { font-size: .58rem; line-height: 1.25; gap: 20px; }
+  .ceremony-card--photo-dense .ceremony-venue-line { font-size: .58rem; margin-top: 3px; }
+}
 
 /* --- default (dark-photo) treatment, e.g. Sangeet's night scene ---
    !important: these must win over the .theme-* text-color rules, which

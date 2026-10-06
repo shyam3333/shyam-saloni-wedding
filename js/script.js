@@ -495,7 +495,7 @@
                 ${g.items
                   .map(
                     (s) =>
-                      `<p class="ceremony-schedule-item"><span class="ceremony-schedule-label">${s.label}</span> &middot; ${s.time}</p>`
+                      `<p class="ceremony-schedule-item"><span class="ceremony-schedule-label">${s.label}</span><span class="ceremony-schedule-time">${s.time}</span></p>`
                   )
                   .join("")}
               </div>`
@@ -520,7 +520,8 @@
             c.darkText ? "ceremony-card--photo-dark" : "",
             c.textTop ? "ceremony-card--photo-anchored" : "",
             c.boldText ? "ceremony-card--extra-bold" : "",
-            "ceremony-card--photo-compact"
+            "ceremony-card--photo-compact",
+            c.denseText ? "ceremony-card--photo-dense" : ""
           ]
             .filter(Boolean)
             .join(" ");
@@ -545,7 +546,7 @@
           ? `<div class="ceremony-schedule">${c.schedule
               .map(
                 (s) =>
-                  `<p class="ceremony-schedule-item"><span class="ceremony-schedule-label">${s.label}</span> &middot; ${s.time}</p>`
+                  `<p class="ceremony-schedule-item"><span class="ceremony-schedule-label">${s.label}</span><span class="ceremony-schedule-time">${s.time}</span></p>`
               )
               .join("")}</div>`
           : `<p class="ceremony-meta">${c.time}</p>`;
@@ -556,7 +557,7 @@
           ${c.subtitle ? `<p class="ceremony-subtitle"${c.subtitleMaxWidth ? ` style="--ceremony-subtitle-max:${c.subtitleMaxWidth}"` : ""}>${c.subtitle}</p>` : ""}
           <p class="ceremony-meta">${c.date}</p>
           ${scheduleOrTime}
-          ${c.venue ? `<p class="ceremony-venue-line">Venue &mdash; ${c.venue}</p>` : ""}
+          ${c.venue ? `<p class="ceremony-venue-line"${c.venueGap ? ` style="--venue-gap:${c.venueGap}"` : ""}>Venue &mdash; ${c.venue}</p>` : ""}
           ${c.themeLabel && c.themeLabelHeading ? `<span class="ceremony-theme-heading">${c.themeLabelHeading}</span>` : ""}
           ${c.themeLabel ? `<span class="ceremony-theme-badge">${c.themeLabel}</span>` : ""}
         `;

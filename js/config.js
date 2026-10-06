@@ -61,7 +61,6 @@ window.WEDDING_CONFIG = {
   gallery: [
     { img: "assets/images/reel/reel-1.jpg" },
     { img: "assets/images/reel/reel-2.jpg" },
-    { img: "assets/images/reel/reel-3.jpg", portrait: true },
     { img: "assets/images/reel/reel-4.jpg" },
     { img: "assets/images/reel/reel-5.jpg" },
     { img: "assets/images/reel/reel-6.jpg" },
@@ -76,6 +75,7 @@ window.WEDDING_CONFIG = {
   venue: {
     name: "Madhogarh, Jaipur",
     address: "Grand Sikar Road, Before Rajawas Pulia, Jaipur, Rajasthan – 302048",
+    mobile: "Mob : 9950088838",
     mapQuery: "27.0540141,75.754726",
     directionsUrl: "https://www.google.com/maps/place/Madhogarh/@27.0540141,75.7521511,17z/data=!4m9!3m8!1s0x396dad4860958c3d:0xf1d95c6356ddb17d!5m2!4m1!1i2!8m2!3d27.0540141!4d75.754726!16s%2Fg%2F11rhsvg8yj!5m1!1e1",
     img: null
@@ -110,7 +110,8 @@ window.WEDDING_CONFIG = {
       name: "Manglik Programme",
       bgImage: "assets/images/ceremonies/manglik-bg.jpg",
       darkText: true,
-      textTop: "24%",
+      denseText: true,
+      textTop: "18%",
       venue: "Home",
       venueMap: {
         mapQuery: "26.9234102,75.7480169",
@@ -137,6 +138,12 @@ window.WEDDING_CONFIG = {
           items: [
             { label: "Bhaat (Groom)", time: "3:30 PM" },
             { label: "Ghudchari", time: "7:30 PM" }
+          ]
+        },
+        {
+          date: "25 November 2026",
+          items: [
+            { label: "Nikrosi", time: "10:00 AM" }
           ]
         }
       ]
@@ -189,7 +196,7 @@ window.WEDDING_CONFIG = {
     {
       icon: "baratReception",
       theme: "royal",
-      name: "Barat on Wheels & Reception",
+      name: "Barat On Wheels<br>&<br>Reception",
       subtitle: "Happily Ever After Party",
       date: "26th November 2026",
       themeLabel: "",
@@ -215,7 +222,8 @@ window.WEDDING_CONFIG = {
       venue: "Madhogarh",
       bgImage: "assets/images/ceremonies/bheegi-palkein-bg.jpg",
       darkText: true,
-      textTop: "28%"
+      venueGap: "0px",
+      textTop: "26%"
     },
     {
       icon: "pheras",
