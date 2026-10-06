@@ -38,6 +38,7 @@ window.WEDDING_CONFIG = {
   },
 
   // ---- Cover / intro text --------------------------------------------
+  coverHashtag: "#ShyamKiSaloni",
   coverInviteLine: "The Varshney family invite you to celebrate the auspicious wedding of Shyam and Saloni.",
 
   // ---- Logo used on the cover seal (transparent PNG) --------------------
@@ -52,13 +53,20 @@ window.WEDDING_CONFIG = {
   weddingDateShort: "26th November, 2026",
   tagline: "The start of a beautiful journey, shared with the ones we love most.",
 
-  // ---- Gallery ("Our Beautiful Moments") --------------------------------
-  // Add up to as many as you like. Set img to a path once you have photos.
+  // ---- Film reel ("Our Beautiful Moments") --------------------------------
+  // The photos scroll past on a film strip, in this order. galleryCaption is
+  // the one line shown under the strip. portrait:true shows the whole upright
+  // photo (face and body) instead of cropping it into the landscape frame.
+  galleryCaption: "Forever Begins Here",
   gallery: [
-    { caption: "Where It All Begin", img: "assets/images/gallery/begin.jpg" },
-    { caption: "The Proposal", img: "assets/images/gallery/proposal.jpg" },
-    { caption: "Our First Celebration Together", img: "assets/images/gallery/celebration.jpg" },
-    { caption: "Forever Begins Here", img: "assets/images/gallery/forever.jpg" }
+    { img: "assets/images/reel/reel-1.jpg" },
+    { img: "assets/images/reel/reel-2.jpg" },
+    { img: "assets/images/reel/reel-3.jpg", portrait: true },
+    { img: "assets/images/reel/reel-4.jpg" },
+    { img: "assets/images/reel/reel-5.jpg" },
+    { img: "assets/images/reel/reel-6.jpg" },
+    { img: "assets/images/reel/reel-7.jpg" },
+    { img: "assets/images/reel/reel-8.jpg", portrait: true }
   ],
 
   // ---- Venue -------------------------------------------------------------
@@ -140,11 +148,12 @@ window.WEDDING_CONFIG = {
       subtitle: "Colorful Fiesta",
       date: "25th November 2026",
       time: "1:30 PM onwards",
+      themeLabelHeading: "Dress Code",
       themeLabel: "Shades Of Lavender",
       venue: "Madhogarh",
       bgImage: "assets/images/ceremonies/haldi-carnival-bg.jpg",
       darkText: true,
-      textTop: "19%"
+      textTop: "8%"
     },
     {
       icon: "sangeetDark",
@@ -153,6 +162,7 @@ window.WEDDING_CONFIG = {
       subtitle: "Sip, Sparkle & Say ‘Yes’",
       date: "25th November 2026",
       time: "5:30 PM onwards",
+      themeLabelHeading: "Dress Code",
       themeLabel: "Glam and Glitter",
       venue: "Madhogarh",
       bgImage: "assets/images/ceremonies/sangeet-bg.jpg",
@@ -169,7 +179,7 @@ window.WEDDING_CONFIG = {
       bgImage: "assets/images/ceremonies/pheras-bg.jpg",
       darkText: true,
       boldText: true,
-      textTop: "24%",
+      textTop: "7%",
       schedule: [
         { label: "Bhaat (Bride)", time: "11:00 AM" },
         { label: "Sagai And Aagoni", time: "1:30 PM" },
@@ -187,7 +197,7 @@ window.WEDDING_CONFIG = {
       bgImage: "assets/images/ceremonies/barat-reception-bg.jpg",
       darkText: true,
       boldText: true,
-      textTop: "34%",
+      textTop: "24%",
       schedule: [
         { label: "Barat", time: "7:30 PM" },
         { label: "Dinner", time: "8:00 PM onwards" },
@@ -205,7 +215,7 @@ window.WEDDING_CONFIG = {
       venue: "Madhogarh",
       bgImage: "assets/images/ceremonies/bheegi-palkein-bg.jpg",
       darkText: true,
-      textTop: "30%"
+      textTop: "28%"
     },
     {
       icon: "pheras",

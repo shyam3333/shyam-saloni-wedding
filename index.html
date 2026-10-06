@@ -55,7 +55,7 @@
       </button>
     </div>
 
-    <p class="cover-tag">Wedding Day</p>
+    <p class="cover-tag" data-bind="coverHashtag"></p>
   </section>
 
   <!-- ===================== NAME SPLASH ===================== -->
@@ -101,7 +101,7 @@
         <p class="couple-parent">Son of <span data-bind="families.groomParents"></span></p>
         <p class="couple-grandparent">(Grandson of <span data-bind="families.groomGrandparents"></span>)</p>
 
-        <div class="ampersand" aria-hidden="true">&amp;</div>
+        <div class="ampersand" aria-hidden="true">Weds</div>
 
         <h2 class="couple-name script" data-bind="couple.brideFull"></h2>
         <p class="couple-parent">Daughter of <span data-bind="families.brideParents"></span></p>
@@ -133,17 +133,10 @@
       <p class="eyebrow">A Glimpse Of Us</p>
       <h2 class="section-title script">Our Beautiful Moments</h2>
 
-      <div class="gallery-carousel">
-        <div class="gallery-viewport" id="galleryViewport" role="button" tabindex="0" aria-label="Tap to see the next photo">
-          <div class="gallery-track" id="galleryTrack"></div>
-          <div class="gallery-tap-hint" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-        </div>
-        <p class="gallery-caption script" id="galleryCaption"></p>
-        <div class="gallery-dots" id="galleryDots"></div>
-        <p class="gallery-hint">Tap the photo for the next moment</p>
+      <div class="film-reel" aria-label="Our photos, scrolling by like a film reel">
+        <div class="film-strip"><div class="film-track" id="filmTrack"></div></div>
       </div>
+      <p class="gallery-caption script" id="galleryCaption"></p>
     </section>
 
     <!-- ---------- VENUE ---------- -->
