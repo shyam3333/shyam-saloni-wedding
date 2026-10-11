@@ -233,9 +233,9 @@ button { font-family: inherit; }
   inset: 0;
   width: 100%;
   height: 100%;
-  animation: sealSpin 16s linear infinite;
+  /* the slow rotation is driven from script.js (see spinSealRing), not a CSS
+     animation, so it still turns when the phone asks for reduced motion */
 }
-@keyframes sealSpin { to { transform: rotate(360deg); } }
 .seal-ring-text {
   font-family: var(--font-display);
   font-size: 11.5px;
@@ -1104,7 +1104,7 @@ button { font-family: inherit; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .petal, .seal-btn, .seal-ring, .scroll-arrow, .scroll-cue { animation: none !important; }
+  .petal, .seal-btn, .scroll-arrow, .scroll-cue { animation: none !important; }
   /* the film reel is deliberately NOT stopped here: it is the content of its
      section, and a phone with "remove animations" / battery saver on would
      otherwise see a frozen strip. It is a slow, gentle drift. */

@@ -77,6 +77,26 @@
   const sealBtn = document.getElementById("sealBtn");
   const nameSplash = document.getElementById("nameSplash");
 
+  // Rotate the "Tap to Reveal" ring from JavaScript. A CSS animation is
+  // switched off by phones in reduce-motion / battery-saver modes (which is
+  // why it spun on a computer but stood still on a phone); a
+  // requestAnimationFrame loop keeps running, so the ring always turns.
+  (function spinSealRing() {
+    const ring = sealBtn && sealBtn.querySelector(".seal-ring");
+    if (!ring) return;
+    const DEG_PER_SEC = 360 / 16; // one full turn every 16 seconds
+    let angle = 0, last = 0;
+    function frame(now) {
+      if (sealBtn.classList.contains("is-cracking")) return; // reveal animation takes over
+      requestAnimationFrame(frame);
+      if (!last) last = now;
+      angle = (angle + DEG_PER_SEC * Math.min(now - last, 100) / 1000) % 360;
+      last = now;
+      ring.style.transform = `rotate(${angle}deg)`;
+    }
+    requestAnimationFrame(frame);
+  })();
+
   function burstSparks(originEl) {
     const rect = originEl.getBoundingClientRect();
     const frameRect = appFrame.getBoundingClientRect();
