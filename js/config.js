@@ -39,7 +39,7 @@ window.WEDDING_CONFIG = {
 
   // ---- Cover / intro text --------------------------------------------
   coverHashtag: "#ShyamKiSaloni",
-  coverInviteLine: "The Varshney family invite you to celebrate the auspicious wedding of Shyam and Saloni.",
+  coverInviteLine: "The Varshney family invite you and your family to celebrate the auspicious wedding of Shyam and Saloni.",
 
   // ---- Logo used on the cover seal (transparent PNG) --------------------
   logo: {
